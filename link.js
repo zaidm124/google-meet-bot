@@ -8,7 +8,7 @@ async function link (meet) {
     const browser = await puppeteer.launch({
         headless: false,
         args: ['--disable-notifications', '--mute-audio', '--enable-automation', '--start-maximized'],
-        ignoreDefaultArgs: true,
+        ignoreDefaultArgs: false,
     });
     const [page] = await browser.pages();
     if (finalLink || meet) {

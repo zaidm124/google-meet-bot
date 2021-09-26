@@ -9,11 +9,10 @@ async function mailRedirect () {
         ignoreDefaultArgs: true,
     });
     const [page] = await browser.pages();
-    const acceptBeforeUnload = dialog =>
-        dialog.type() === "beforeunload" && dialog.accept()
-    ;
-    page.on("dialog", acceptBeforeUnload);
-
+    // const acceptBeforeUnload = dialog =>
+    //     dialog.type() === 'beforeunload' && dialog.accept()
+    // ;
+    // page.on('dialog', acceptBeforeUnload);
 
     const context = browser.defaultBrowserContext();
     await context.clearPermissionOverrides();
@@ -35,29 +34,45 @@ async function mailRedirect () {
     await page.waitForSelector('input[type="password"]');
     await page.type('input[type="password"]', 'IIITrocks@surat');
 
+    //Next
     await page.waitForSelector('.VfPpkd-vQzf8d');
     await page.click('.VfPpkd-vQzf8d');
 
     await page.waitForNavigation();
-    // await page.waitForSelector('.zA.yO');
-    // await page.click('.zA.yO');
+    await page.waitForSelector('.zA');
+    await page.click('.zA');
 
     await page.waitForSelector('.a3s.aiL a');
-    let element = await page.$('.a3s.aiL a');
+    let value;
+    let list = await page.evaluate(() =>
+        Array.from(document.querySelectorAll('.a3s.aiL a'),
+            e => e.href));
+    // console.log(list);
+    if (list.length) {
+        list.map((l) => {
+            if (l.includes('meet')) {
+                value = l;
+            }
+        });
+    }
+    if (!value) {
+        value = 'https://meet.google.com/';
+        await page.goto(value);//Redirect to google meet
+        await page.waitForNavigation();
+    } else {
+        await page.goto(value);//Redirect to google meet
+        console.log(value);
+    }
 
-    let value = await page.evaluate('document.querySelector(".a3s.aiL a").getAttribute("href")');
-
-    console.log(value);
-    await page.goto(value);
-
-    // await page.waitForNavigation()
     //Microphone muted
     await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
     await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
+
     //Camera off
     await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
     await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
 
+    //Join Button
     await page.waitForTimeout(2000);
     await page.waitForSelector('.l4V7wb.Fxmcue span');
     await page.click('.l4V7wb.Fxmcue span');
