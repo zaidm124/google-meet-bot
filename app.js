@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
+require('dotenv').config();
 
 async function mailRedirect () {
     const browser = await puppeteer.launch({
@@ -23,7 +24,7 @@ async function mailRedirect () {
 
     //Type username
     await page.waitForSelector('input[type="email"]');
-    await page.type('input[type="email"]', 'ui20cs74@iiitsurat.ac.in');
+    await page.type('input[type="email"]', process.env.USERID);
 
     //Next
     await page.waitForSelector('.VfPpkd-vQzf8d');
@@ -32,7 +33,7 @@ async function mailRedirect () {
     //Type Password
     await page.waitForTimeout(3500);
     await page.waitForSelector('input[type="password"]');
-    await page.type('input[type="password"]', 'IIITrocks@surat');
+    await page.type('input[type="password"]', process.env.PASSWORD);
 
     //Next
     await page.waitForSelector('.VfPpkd-vQzf8d');

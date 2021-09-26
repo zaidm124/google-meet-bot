@@ -2,7 +2,8 @@ const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 const finalLink = require('./linkFromTimetable');
-const mailRedirect = require('./bot-gmail/app');
+const mailRedirect = require('./app');
+require('dotenv').config()
 
 async function link (meet) {
     const browser = await puppeteer.launch({
@@ -24,7 +25,7 @@ async function link (meet) {
 
         //Type username
         await page.waitForSelector('input[type="email"]');
-        await page.type('input[type="email"]', 'ui20cs74@iiitsurat.ac.in');
+        await page.type('input[type="email"]', process.env.USERID);
 
         //Next
         await page.waitForSelector('.VfPpkd-vQzf8d');
@@ -33,7 +34,7 @@ async function link (meet) {
         //Type Password
         await page.waitForTimeout(3500);
         await page.waitForSelector('input[type="password"]');
-        await page.type('input[type="password"]', 'IIITrocks@surat');
+        await page.type('input[type="password"]', process.env.PASSWORD);
 
         await page.waitForSelector('.VfPpkd-vQzf8d');
         await page.click('.VfPpkd-vQzf8d');
