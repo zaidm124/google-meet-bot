@@ -78,7 +78,7 @@ async function mailRedirect () {
     await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
 
     //Join Button
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(2200);
     await page.waitForSelector('.l4V7wb.Fxmcue span');
     await page.click('.l4V7wb.Fxmcue span');
 

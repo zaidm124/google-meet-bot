@@ -25,7 +25,7 @@ async function link (meet) {
 
         //Type username
         await page.waitForSelector('input[type="email"]');
-        await page.type('input[type="email"]', 'ui20cs74@iiitsurat.ac.in');
+        await page.type('input[type="email"]', process.env.USERID);
 
         //Next
         await page.waitForSelector('.VfPpkd-vQzf8d');
@@ -34,7 +34,7 @@ async function link (meet) {
         //Type Password
         await page.waitForTimeout(3500);
         await page.waitForSelector('input[type="password"]');
-        await page.type('input[type="password"]', 'IIITrocks@surat');
+        await page.type('input[type="password"]', process.env.PASSWORD);
 
         await page.waitForSelector('.VfPpkd-vQzf8d');
         await page.click('.VfPpkd-vQzf8d');
@@ -69,7 +69,7 @@ async function link (meet) {
         await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
         await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
 
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(2200);
         await page.waitForSelector('.l4V7wb.Fxmcue span');
         await page.click('.l4V7wb.Fxmcue span');
     }
