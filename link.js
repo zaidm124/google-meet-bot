@@ -8,7 +8,7 @@ require('dotenv').config();
 async function link (meet) {
     const browser = await puppeteer.launch({
         headless: false,
-        args: ['--disable-notifications', '--mute-audio', '--enable-automation', '--start-maximized'],
+        args: ['--disable-notifications', '--enable-automation', '--start-maximized'],
         ignoreDefaultArgs: false,
     });
     const finalLink = linkFromTheTable();

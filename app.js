@@ -6,7 +6,7 @@ require('dotenv').config();
 async function mailRedirect () {
     const browser = await puppeteer.launch({
         headless: false,
-        args: ['--disable-notifications', '--mute-audio', '--enable-automation', '--start-maximized'],
+        args: ['--disable-notifications', '--enable-automation', '--start-maximized'],
         ignoreDefaultArgs: true,
     });
     const [page] = await browser.pages();
@@ -48,14 +48,17 @@ async function mailRedirect () {
     let list = await page.evaluate(() =>
         Array.from(document.querySelectorAll('.a3s.aiL a'),
             e => e.href));
-    // console.log(list);
+    console.log(list);
+    let meetLinks = [];
     if (list.length) {
         list.map((l) => {
             if (l.includes('meet')) {
-                value = l;
+                meetLinks.push(l);
             }
         });
     }
+    value = meetLinks[0];
+    console.log(value);
     if (!value) {
         value = 'https://meet.google.com/';
         await page.goto(value);//Redirect to google meet
