@@ -1,9 +1,9 @@
 const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
-const finalLink = require('./linkFromTimetable');
+const linkFromTheTable = require('./linkFromTimetable');
 const mailRedirect = require('./app');
-require('dotenv').config()
+require('dotenv').config();
 
 async function link (meet) {
     const browser = await puppeteer.launch({
@@ -11,6 +11,7 @@ async function link (meet) {
         args: ['--disable-notifications', '--mute-audio', '--enable-automation', '--start-maximized'],
         ignoreDefaultArgs: false,
     });
+    const finalLink = linkFromTheTable();
     const [page] = await browser.pages();
     if (finalLink || meet) {
         await page.goto('https://accounts.google.com');
