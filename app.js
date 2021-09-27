@@ -43,7 +43,7 @@ async function mailRedirect () {
     await page.waitForSelector('.zA');
     await page.click('.zA');
 
-    await page.waitForSelector('.a3s.aiL a');
+    await page.waitForSelector('.a3s.aiL');
     let value;
     let list = await page.evaluate(() =>
         Array.from(document.querySelectorAll('.a3s.aiL a'),
@@ -56,8 +56,9 @@ async function mailRedirect () {
                 meetLinks.push(l);
             }
         });
+        value = meetLinks[0];
     }
-    value = meetLinks[0];
+
     console.log(value);
     if (!value) {
         value = 'https://meet.google.com/';
