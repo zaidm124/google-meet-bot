@@ -11,11 +11,10 @@ async function link (meet) {
         args: ['--disable-notifications', '--enable-automation', '--start-maximized'],
         ignoreDefaultArgs: false,
     });
-    const finalLink = linkFromTheTable();
+    let finalLink = linkFromTheTable();
     const [page] = await browser.pages();
     if (finalLink || meet) {
         await page.goto('https://accounts.google.com');
-
         const context = browser.defaultBrowserContext();
         await context.clearPermissionOverrides();
         if (finalLink) {
@@ -26,7 +25,7 @@ async function link (meet) {
 
         //Type username
         await page.waitForSelector('input[type="email"]');
-        await page.type('input[type="email"]', process.env.USERID);
+        await page.type('input[type="email"]', 'ui20cs74@iiitsurat.ac.in');
 
         //Next
         await page.waitForSelector('.VfPpkd-vQzf8d');
@@ -35,7 +34,7 @@ async function link (meet) {
         //Type Password
         await page.waitForTimeout(3500);
         await page.waitForSelector('input[type="password"]');
-        await page.type('input[type="password"]', process.env.PASSWORD);
+        await page.type('input[type="password"]', 'IIITrocks@surat');
 
         await page.waitForSelector('.VfPpkd-vQzf8d');
         await page.click('.VfPpkd-vQzf8d');
@@ -50,6 +49,7 @@ async function link (meet) {
     } else if (meet) {
 
         await page.goto(`https://meet.google.com/${meet}`);
+        //Microphone muted
         await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
         await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
         //Camera off
@@ -62,6 +62,7 @@ async function link (meet) {
 
     } else if (finalLink) {
         await page.goto(`https://meet.google.com/${finalLink}`);
+        //Microphone muted
         await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
         await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
         //Camera off
@@ -78,9 +79,6 @@ async function link (meet) {
     // } else {
     //     await newPage.goto(`https://meet.google.com/${meet}`);
     // }
-
-    //Microphone muted
-
 }
 
 module.exports = link;

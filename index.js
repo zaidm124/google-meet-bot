@@ -4,18 +4,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const link = require('./link');
+const theLiveTimer = require('../google-meet-bot/timer/timer');
 
 const PORT = 3000;
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
+app.get('/joinButton', (req, res) => {
+    res.sendFile(__dirname + '/joinButton.html');
+});
 
 app.post('/joinMeet', (req, res) => {
     var theLink = req.body.meetlink;
     link(theLink);
-    res.redirect('/');
+    res.redirect('/joinButton');
+});
 
+app.post('/activateBot', (req, res) => {
+    setInterval(theLiveTimer, 1000);
+    res.redirect('/joinButton');
 });
 
 app.listen(PORT, () => {

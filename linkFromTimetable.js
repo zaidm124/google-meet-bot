@@ -38,4 +38,6 @@ function getFinalLink () {
     return finalLink;
 }
 
+getFinalLink();
+
 module.exports = getFinalLink;
