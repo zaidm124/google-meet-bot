@@ -3,13 +3,37 @@
 <head>
 	<meta charset = "UTF-8">
 	<title>Join Link</title>
+	<link href = "/joinButton.css" type = "text/css" rel = "stylesheet"/>
 </head>
 <body>
+	<div id = "container">
+		<div id = "sentence">The Class going on is:</div>
+		<div id = "current"></div>
+		<div id = "button">
+			<form action = "/joinMeet" method = "post">
+				<button>Join Class</button>
+			</form>
+		</div>
+	</div>
+
+	<div>
+		<div class = "next">Next Class in:</div>
+		<div class = "time">
+			<div id="day"></div>
+			<div id = "hr"></div>
+			<div id = "min"></div>
+			<div id = "ss"></div>
+		</div>
+	</div>
 
 	<form action = "/joinMeet" method = "post">
 		Enter meet id:<input type = "text" name = "meetlink" id = "">
 		<button type = "submit">Join Meet</button>
 	</form>
+
+	<script src = "./timetable.js"></script>
+	<script src = "./nextTimer.js"></script>
+	<script src = "./currentClass.js"></script>
 
 </body>
 </html>
