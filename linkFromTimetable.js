@@ -9,16 +9,17 @@ function getFinalLink () {
 
     const hour = new Date(Date.now()).getHours();
     const min = new Date(Date.now()).getMinutes();
-    let currentTime = hour + ':' + min;
+    const ss=new Date(Date.now()).getSeconds()
+    let currentTime = hour + ':' + min+':'+ss;
     console.log(currentTime);
 
-    currentTime = getTimeAsNumberOfMinutes(currentTime);
+    currentTime = getTimeasNumberOfSeconds(currentTime);
     console.log('current time: ', currentTime);
     var finalLink;
 
     for (let i = 0; i < day.length; i++) {
-        var startTime = getTimeAsNumberOfMinutes(day[i].start);
-        var endTime = getTimeAsNumberOfMinutes(day[i].end);
+        var startTime = getTimeasNumberOfSeconds(day[i].start);
+        var endTime = getTimeasNumberOfSeconds(day[i].end);
         console.log('start time: ', startTime);
         console.log('end time: ', endTime);
         if (startTime <= currentTime && endTime >= currentTime) {
@@ -29,10 +30,10 @@ function getFinalLink () {
     }
     console.log(finalLink);
 
-    function getTimeAsNumberOfMinutes (time) {
+    function getTimeasNumberOfSeconds (time) {
         var timeParts = time.split(':');
-        var timeInMinutes = (parseInt(timeParts[0]) * 60) + parseInt(timeParts[1]);
-        return parseInt(timeInMinutes);
+        var timeInSeconds = (parseInt(timeParts[0]) * 60 * 60) + (parseInt(timeParts[1]) * 60) + (parseInt(timeParts[2]));
+        return parseInt(timeInSeconds);
     }
 
     return finalLink;
