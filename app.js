@@ -10,10 +10,10 @@ async function mailRedirect () {
         ignoreDefaultArgs: true,
     });
     const [page] = await browser.pages();
-    // const acceptBeforeUnload = dialog =>
-    //     dialog.type() === 'beforeunload' && dialog.accept()
-    // ;
-    // page.on('dialog', acceptBeforeUnload);
+    const acceptBeforeUnload = dialog =>
+        dialog.type() === 'beforeunload' && dialog.accept()
+    ;
+    page.on('dialog', acceptBeforeUnload);
 
     const context = browser.defaultBrowserContext();
     await context.clearPermissionOverrides();
@@ -59,15 +59,15 @@ async function mailRedirect () {
         value = meetLinks[0];
     }
 
-    console.log(value);
     if (!value) {
         value = 'https://meet.google.com/';
         await page.goto(value);//Redirect to google meet
         await page.waitForNavigation();
     } else {
         await page.goto(value);//Redirect to google meet
-        console.log(value);
+        // console.log(value);
     }
+    // console.log(value);
 
     //Microphone muted
     await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
@@ -80,7 +80,11 @@ async function mailRedirect () {
     //Join Button
     await page.waitForTimeout(2200);
     await page.waitForSelector('.l4V7wb.Fxmcue span');
-    await page.click('.l4V7wb.Fxmcue span');
+    for (let i=1; i<=4; i++) {
+        await page.keyboard.press('Tab');
+    }
+    await page.keyboard.press('Enter');
+    // await page.click('.l4V7wb.Fxmcue span');
 
 }
 

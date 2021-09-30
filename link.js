@@ -58,7 +58,10 @@ async function link (meet) {
 
         await page.waitForTimeout(2000);
         await page.waitForSelector('.l4V7wb.Fxmcue span');
-        await page.click('.l4V7wb.Fxmcue span');
+        for (let i=1; i<=4; i++) {
+            await page.keyboard.press('Tab');
+        }
+        await page.keyboard.press('Enter');
 
     } else if (finalLink) {
         await page.goto(`https://meet.google.com/${finalLink}`);
@@ -71,7 +74,10 @@ async function link (meet) {
 
         await page.waitForTimeout(2200);
         await page.waitForSelector('.l4V7wb.Fxmcue span');
-        await page.click('.l4V7wb.Fxmcue span');
+        for (let i=1; i<=4; i++) {
+            await page.keyboard.press('Tab');
+        }
+        await page.keyboard.press('Enter');
     }
 
     // if (finalLink) {

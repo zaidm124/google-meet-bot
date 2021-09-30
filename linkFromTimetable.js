@@ -5,27 +5,27 @@ const weekday = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday
 function getFinalLink () {
     let day = new Date().getDay();
     day = timing[weekday[day]];
-    console.log(day);
+    // console.log(day);
 
     const hour = new Date(Date.now()).getHours();
     const min = new Date(Date.now()).getMinutes();
     const ss=new Date(Date.now()).getSeconds()
     let currentTime = hour + ':' + min+':'+ss;
-    console.log(currentTime);
+    // console.log(currentTime);
 
     currentTime = getTimeasNumberOfSeconds(currentTime);
-    console.log('current time: ', currentTime);
+    // console.log('current time: ', currentTime);
     var finalLink;
 
     for (let i = 0; i < day.length; i++) {
         var startTime = getTimeasNumberOfSeconds(day[i].start);
         var endTime = getTimeasNumberOfSeconds(day[i].end);
-        console.log('start time: ', startTime);
-        console.log('end time: ', endTime);
+        // console.log('start time: ', startTime);
+        // console.log('end time: ', endTime);
         if (startTime <= currentTime && endTime >= currentTime) {
             finalLink = day[i].link;
-            console.log(startTime);
-            console.log(endTime);
+            // console.log(startTime);
+            // console.log(endTime);
         }
     }
     console.log(finalLink);
