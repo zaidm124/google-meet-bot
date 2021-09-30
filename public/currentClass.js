@@ -38,7 +38,7 @@ function getCurrentClass () {
             // console.log(endTime);
         }
         if (startTime > currentTime && endTime > currentTime) {
-            nextClass.push(numberOfDay + ':' + day[i].start);
+            nextClass.push(day[i]);
         }
     }
 
@@ -58,7 +58,7 @@ function getCurrentClass () {
                 // console.log(endTime);
             }
             if (startTime > currentTime && endTime > currentTime) {
-                nextClass.push(numberOfDay + 1 + ':' + nextDay[i].start);
+                nextClass.push(nextDay[i]);
             }
         }
     }

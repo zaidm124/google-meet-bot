@@ -6,9 +6,9 @@ function timeLeft () {
     let currentTime = `${liveTime.getDay()}:${liveTime.getHours()}:${liveTime.getMinutes()}:${liveTime.getSeconds()}`;
     currentTime = getTimeasNumberOfSeconds(currentTime);
     const nextClass = getCurrentClass();
-    console.log(nextClass);
-    let nextTime = getTimeasNumberOfSeconds(nextClass);
-    console.log('next time', nextTime);
+    // console.log(nextClass);
+    let nextTime = getTimeasNumberOfSeconds(nextClass.day + ':' + nextClass.start);
+    // console.log('next time', nextTime);
     // console.log('current time', currentTime);
     let distance = nextTime - currentTime;
     let days, hr, min, ss;
@@ -24,6 +24,7 @@ function timeLeft () {
         document.getElementById('min').innerHTML = min + ':';
         document.getElementById('ss').innerHTML = ss;
     }
+    document.getElementById('nextclass').innerHTML = nextClass.subject;
 
     function getTimeasNumberOfSeconds (time) {
         var timeParts = time.split(':');
