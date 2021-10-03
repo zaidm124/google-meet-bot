@@ -49,29 +49,33 @@ async function link (meet) {
     } else if (meet) {
 
         await page.goto(`https://meet.google.com/${meet}`);
+        muteAndJoin();
     } else if (finalLink) {
         await page.goto(`https://meet.google.com/${finalLink}`);
+        muteAndJoin();
     }
 
-    //Microphone muted
-    await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
-    await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
+    async function muteAndJoin () {
+        //Microphone muted
+        await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
+        await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
 
-    //Camera off
-    await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
-    await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
+        //Camera off
+        await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
+        await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
 
-    // Join Button
-    await page.waitForTimeout(2500);
-    await page.evaluate(query => {
-        const elements = [...document.querySelectorAll('.l4V7wb.Fxmcue span')];
+        // Join Button
+        await page.waitForTimeout(2500);
+        await page.evaluate(query => {
+            const elements = [...document.querySelectorAll('.l4V7wb.Fxmcue span')];
 
-        let targetElement = elements.find(e => e.innerText.includes('Ask to join'));
-        if (!targetElement) {
-            targetElement = elements.find(e => e.innerText.includes('Join now'));
-        }
-        targetElement && targetElement.click();
-    });
+            let targetElement = elements.find(e => e.innerText.includes('Ask to join'));
+            if (!targetElement) {
+                targetElement = elements.find(e => e.innerText.includes('Join now'));
+            }
+            targetElement && targetElement.click();
+        });
+    }
 
 }
 
