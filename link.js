@@ -49,42 +49,30 @@ async function link (meet) {
     } else if (meet) {
 
         await page.goto(`https://meet.google.com/${meet}`);
-        //Microphone muted
-        await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
-        await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
-        //Camera off
-        await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
-        await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
-
-        await page.waitForTimeout(2000);
-        await page.waitForSelector('.l4V7wb.Fxmcue span');
-        for (let i=1; i<=4; i++) {
-            await page.keyboard.press('Tab');
-        }
-        await page.keyboard.press('Enter');
-
     } else if (finalLink) {
         await page.goto(`https://meet.google.com/${finalLink}`);
-        //Microphone muted
-        await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
-        await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
-        //Camera off
-        await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
-        await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
-
-        await page.waitForTimeout(2200);
-        await page.waitForSelector('.l4V7wb.Fxmcue span');
-        for (let i=1; i<=4; i++) {
-            await page.keyboard.press('Tab');
-        }
-        await page.keyboard.press('Enter');
     }
 
-    // if (finalLink) {
-    //     await newPage.goto(`https://meet.google.com/${finalLink}`);
-    // } else {
-    //     await newPage.goto(`https://meet.google.com/${meet}`);
-    // }
+    //Microphone muted
+    await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
+    await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
+
+    //Camera off
+    await page.waitForSelector('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
+    await page.click('.U26fgb.JRY2Pb.mUbCce.kpROve.yBiuPb.y1zVCf.M9Bg4d.HNeRed');
+
+    // Join Button
+    await page.waitForTimeout(2500);
+    await page.evaluate(query => {
+        const elements = [...document.querySelectorAll('.l4V7wb.Fxmcue span')];
+
+        let targetElement = elements.find(e => e.innerText.includes('Ask to join'));
+        if (!targetElement) {
+            targetElement = elements.find(e => e.innerText.includes('Join now'));
+        }
+        targetElement && targetElement.click();
+    });
+
 }
 
 module.exports = link;
