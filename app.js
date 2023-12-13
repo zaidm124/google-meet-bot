@@ -48,7 +48,7 @@ async function mailRedirect () {
     let list = await page.evaluate(() =>
         Array.from(document.querySelectorAll('.a3s.aiL a'),
             e => e.href));
-    console.log(list);
+    // console.log(list);
     let meetLinks = [];
     if (list.length) {
         list.map((l) => {

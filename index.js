@@ -24,7 +24,7 @@ app.post('/joinMeet', (req, res) => {
 });
 
 app.post('/activateBot', (req, res) => {
-    setInterval(theLiveTimer, 1000);
+    theLiveTimer();
     res.redirect('/joinButton');
 });
 

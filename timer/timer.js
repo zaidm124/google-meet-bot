@@ -1,27 +1,94 @@
-const timing = require('../timetable');
-const weekday = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-const  link = require('../link');
+const timing = require("../timetable");
+const weekday = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+];
+const link = require("../link");
 
-function liveTimer () {
-    let liveTime;
-    let hr, min, ss;
-    hr = new Date(Date.now()).getHours();
-    min = new Date(Date.now()).getMinutes();
-    ss = new Date(Date.now()).getSeconds();
-    liveTime = `${hr}:${min}:${ss}`;
-    console.log(liveTime);
-    let day = new Date(Date.now()).getDay();
-    day = timing[weekday[day]];
-    // console.log(day);
-    // console.log(day.length);
-    for (let i = 0; i < day.length; i++) {
-        if (day[i].start === liveTime) {
-            const meetLink = day[i].link;
-            link(meetLink);
-        }
+function liveTimer() {
+  let day = new Date().getDay();
+  let numberOfDay = new Date().getDay();
+
+  day = timing[weekday[day]];
+  // console.log(day);
+  const hour = new Date(Date.now()).getHours();
+  const min = new Date(Date.now()).getMinutes();
+  const ss = new Date(Date.now()).getSeconds();
+
+  let currentTime = numberOfDay + ":" + hour + ":" + min + ":" + ss;
+  // console.log(currentTime);
+
+  currentTime = getTimeasNumberOfSeconds(currentTime);
+
+  const nextClass = [];
+
+  var subjectName;
+  for (let i = 0; i < day.length; i++) {
+    var startTime = getTimeasNumberOfSeconds(numberOfDay + ":" + day[i].start);
+    var endTime = getTimeasNumberOfSeconds(numberOfDay + ":" + day[i].end);
+    // console.log('start time: ', startTime);
+    // console.log('end time: ', endTime);
+    if (startTime <= currentTime && endTime >= currentTime) {
+      subjectName = day[i].subject;
+      // console.log(startTime);
+      // console.log(endTime);
     }
+    if (startTime > currentTime && endTime > currentTime) {
+      nextClass.push(day[i]);
+    }
+  }
+
+  if (!nextClass.length) {
+    if (numberOfDay === 6) {
+      numberOfDay = -1;
+    }
+    let nextDay = timing[weekday[numberOfDay + 1]];
+    for (let i = 0; i < nextDay.length; i++) {
+      var startTime = getTimeasNumberOfSeconds(
+        numberOfDay + 1 + ":" + nextDay[i].start
+      );
+      var endTime = getTimeasNumberOfSeconds(
+        numberOfDay + 1 + ":" + nextDay[i].end
+      );
+      // console.log('start time: ', startTime);
+      // console.log('end time: ', endTime);
+      if (startTime <= currentTime && endTime >= currentTime) {
+        subjectName = day[i].subject;
+        // console.log(startTime);
+        // console.log(endTime);
+      }
+      if (startTime > currentTime && endTime > currentTime) {
+        nextClass.push(nextDay[i]);
+      }
+    }
+  }
+  //   console.log(currentTime);
+  let nextmeet = nextClass[0].day + ":" + nextClass[0].start;
+  //   console.log(nextmeet);
+  nextmeet = getTimeasNumberOfSeconds(nextmeet);
+  //   console.log(nextmeet);
+  const diff = nextmeet - currentTime;
+  console.log(diff);
+  setTimeout(() => {
+    link(nextClass[0].link);
+  }, diff * 1000);
+
+  function getTimeasNumberOfSeconds(time) {
+    var timeParts = time.split(":");
+    var timeInSeconds =
+      parseInt(timeParts[0]) * 24 * 60 * 60 +
+      parseInt(timeParts[1]) * 60 * 60 +
+      parseInt(timeParts[2]) * 60 +
+      parseInt(timeParts[3]);
+    return parseInt(timeInSeconds);
+  }
 }
 
-module.exports=liveTimer;
+module.exports = liveTimer;
 
 // setInterval(liveTimer, 1000);
