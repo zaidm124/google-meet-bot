@@ -34,7 +34,7 @@ async function link(m) {
   ]);
 
   await page.waitForSelector('input[type="email"]');
-  await page.type('input[type="email"]', "ui20cs74@iiitsurat.ac.in");
+  await page.type('input[type="email"]', process.env.email);
 
   const button = await page.$x("//span[contains(text(), 'Next')]");
 
@@ -47,7 +47,7 @@ async function link(m) {
   //     //Type Password
   await page.waitForTimeout(3500);
   await page.waitForSelector('input[type="password"]');
-  await page.type('input[type="password"]', "Tar059@ab");
+  await page.type('input[type="password"]', process.env.password);
 
   const button2 = await page.$x("//span[contains(text(), 'Next')]");
 
